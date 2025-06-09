@@ -17,8 +17,8 @@ ADD_NOTE_ACTION = "addNote"
 
 
 # TODO: pass in args instead of using constants
-def add_note_to_deck():
-    payload = format_add_note_request_payload(DECK, NOTE_TYPE, ["a", "b", "c"])
+def add_note_to_deck(fields: list[str]):
+    payload = format_add_note_request_payload(DECK, NOTE_TYPE, fields)
     url_str = f"http://{ANKI_ADDRESS}:{ANKI_PORT}"
     response = requests.post(url_str, payload, timeout=5)
     logger.debug(response)
@@ -41,7 +41,7 @@ def format_add_note_request_payload(
                     "Meaning": fields[2],
                 },
                 "options": {
-                    "allowDuplicate": False,
+                    "allowDuplicate": True,
                     "duplicateScope": "All",
                     "duplicateScopeOptions": {"checkAllModels": True},
                 },
