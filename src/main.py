@@ -18,6 +18,8 @@ logger = logging.getLogger(__name__)
 
 
 class MainApplication(QApplication):
+    """Main application object"""
+
     def __init__(self, argv):
         super().__init__(argv)
 
@@ -26,6 +28,8 @@ class MainApplication(QApplication):
 
 
 class MainWindow(QMainWindow):
+    """Main window object that contains the gui components"""
+
     def __init__(self, parent=None):
         super().__init__(parent)
 
