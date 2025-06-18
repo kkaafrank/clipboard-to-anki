@@ -6,20 +6,38 @@ import sys
 
 import pyperclip
 from PyHotKey import keyboard
+from PyQt6.QtWidgets import QApplication, QMainWindow
 
 import src.hotkey_functions.register_hotkey as register_hotkey
 import src.logger.setup_logging as setup_logging
 from src.anki.anki_connect import add_note_to_deck
+from src.gui.app_settings_window import Ui_app_settings
 from src.parser.tenten_parser import parse_tab_delimited_dictionary_entry
 
 logger = logging.getLogger(__name__)
 
 
-def main(_: list[str]) -> int:
+class MainApplication(QApplication):
+    def __init__(self, argv):
+        super().__init__(argv)
+
+        self.window = MainWindow()
+        self.window.show()
+
+
+class MainWindow(QMainWindow):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.ui = Ui_app_settings()
+        self.ui.setupUi(self)
+
+        # TODO: connect ui elements to functions
+
+
+def main(argv: list[str]) -> int:
     """Main driver function for"""
-    is_hotkey_registered = register_hotkey.register_hotkey(
-        lambda: add_note_to_deck(pyperclip.paste())
-    )
+    is_hotkey_registered = register_hotkey.register_hotkey(add_10ten_card_to_anki)
     if not is_hotkey_registered:
         logger.error("Unable to register hotkey")
         return 1
@@ -28,12 +46,11 @@ def main(_: list[str]) -> int:
     atexit.register(register_hotkey.unregister_all_hotkeys)
     keyboard.start_listener()
 
-    # TODO: replace with gui event loop
-    while True:
-        pass
+    app = QApplication(argv)
+    exit_code = app.exec()
 
     keyboard.stop_listener()
-    return 0
+    return exit_code
 
 
 def add_10ten_card_to_anki():
@@ -44,4 +61,4 @@ def add_10ten_card_to_anki():
 
 if __name__ == "__main__":
     setup_logging.setup_logger()
-    sys.exit(main(sys.argv[1:]))
+    sys.exit(main(sys.argv))
