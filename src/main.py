@@ -32,7 +32,7 @@ class MainWindow(QMainWindow):
         self.ui = Ui_app_settings()
         self.ui.setupUi(self)
 
-        # TODO: connect ui elements to functions
+        # TODO: connect ui elements to
 
 
 def main(argv: list[str]) -> int:
@@ -46,7 +46,7 @@ def main(argv: list[str]) -> int:
     atexit.register(register_hotkey.unregister_all_hotkeys)
     keyboard.start_listener()
 
-    app = QApplication(argv)
+    app = MainApplication(argv)
     exit_code = app.exec()
 
     keyboard.stop_listener()
