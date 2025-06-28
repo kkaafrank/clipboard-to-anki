@@ -6,37 +6,14 @@ import sys
 
 import pyperclip
 from PyHotKey import keyboard
-from PyQt6.QtWidgets import QApplication, QMainWindow
 
 import src.hotkey_functions.register_hotkey as register_hotkey
 import src.logger.setup_logging as setup_logging
 from src.anki.anki_connect import add_note_to_deck
-from src.gui.app_settings_window import Ui_app_settings
+from src.gui_models.main_application import MainApplication
 from src.parser.tenten_parser import parse_tab_delimited_dictionary_entry
 
 logger = logging.getLogger(__name__)
-
-
-class MainApplication(QApplication):
-    """Main application object"""
-
-    def __init__(self, argv):
-        super().__init__(argv)
-
-        self.window = MainWindow()
-        self.window.show()
-
-
-class MainWindow(QMainWindow):
-    """Main window object that contains the gui components"""
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        self.ui = Ui_app_settings()
-        self.ui.setupUi(self)
-
-        # TODO: connect ui elements to
 
 
 def main(argv: list[str]) -> int:

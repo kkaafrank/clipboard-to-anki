@@ -194,4 +194,4 @@ cython_debug/
 .cursorindexingignore
 
 # PyQt GUI
-src/gui/*.py
+src/ui_files/*.py

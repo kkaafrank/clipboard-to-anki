@@ -6,7 +6,7 @@
         {
             "label": "Build UI",
             "type": "shell",
-            "command": "venv/Scripts/activate;pyuic6 src/gui/app_settings_window.ui -o src/gui/app_settings_window.py"
+            "command": "venv/Scripts/activate;pyuic6 src/ui_files/app_settings_window.ui -o src/ui_files/app_settings_window.py"
         }
     ]
 }
